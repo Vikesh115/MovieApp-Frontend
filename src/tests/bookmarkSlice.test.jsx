@@ -51,7 +51,7 @@ describe('bookmarkSlice tests', () => {
   it('should handle fetchBookmarks.fulfilled', async () => {
     const mockBookmarks = ['bookmark1', 'bookmark2'];
     
-    mockAxios.onGet('http://localhost:8000/user/getbookmark?userId=1').reply(200, { bookmarks: mockBookmarks });
+    mockAxios.onGet('https://movieapp-tu5n.onrender.com/user/getbookmark?userId=1').reply(200, { bookmarks: mockBookmarks });
     
     const expectedActions = [
       { type: fetchBookmarks.pending.type },
@@ -69,7 +69,7 @@ describe('bookmarkSlice tests', () => {
   it('should handle fetchBookmarks.rejected', async () => {
     const errorMessage = 'Failed to fetch bookmarks';
     
-    mockAxios.onGet('http://localhost:8000/user/getbookmark?userId=1').reply(500, { message: errorMessage });
+    mockAxios.onGet('https://movieapp-tu5n.onrender.com/user/getbookmark?userId=1').reply(500, { message: errorMessage });
     
     const expectedActions = [
       { type: fetchBookmarks.pending.type },
@@ -86,7 +86,7 @@ describe('bookmarkSlice tests', () => {
   it('should handle addBookmark', async () => {
     const newBookmark = { name: 'bookmark3' };
     
-    mockAxios.onPost('http://localhost:8000/user/bookmark').reply(200, { bookmarks: [newBookmark] });
+    mockAxios.onPost('https://movieapp-tu5n.onrender.com/user/bookmark').reply(200, { bookmarks: [newBookmark] });
     
     const expectedActions = [
       { type: addBookmark.pending.type },
@@ -103,7 +103,7 @@ describe('bookmarkSlice tests', () => {
   it('should handle deleteBookmark', async () => {
     const initialBookmarks = ['bookmark1', 'bookmark2'];
     
-    mockAxios.onDelete('http://localhost:8000/user/deletebookmark').reply(200, { bookmarks: ['bookmark2'] });
+    mockAxios.onDelete('https://movieapp-tu5n.onrender.com/user/deletebookmark').reply(200, { bookmarks: ['bookmark2'] });
     
     // Dispatching action to delete a bookmark
     await store.dispatch(deleteBookmark({ name: 'bookmark1' }));
