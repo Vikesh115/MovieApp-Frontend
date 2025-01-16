@@ -37,7 +37,7 @@ function Home() {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const trendingRes = await axios.get('http://localhost:8000/movieandtv/getMovieAndTv');
+            const trendingRes = await axios.get('https://movieapp-tu5n.onrender.com/movieandtv/getMovieAndTv');
             setData(trendingRes.data || []);
         } catch (err) {
             setError('Failed to load data. Please try again later.', err);

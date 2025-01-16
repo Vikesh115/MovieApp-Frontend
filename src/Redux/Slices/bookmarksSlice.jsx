@@ -12,7 +12,7 @@ export const fetchBookmarks = createAsyncThunk(
     'bookmarks/fetchBookmarks',
     async (userId, {rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:8000/user/getbookmark?userId=${userId}`);
+            const response = await axios.get(`https://movieapp-tu5n.onrender.com/user/getbookmark?userId=${userId}`);
             console.log("fetch", response.data);
             return response.data.bookmarks; // Assuming API returns bookmarks in this structure
         } catch (error) {
@@ -28,7 +28,7 @@ export const addBookmark = createAsyncThunk(
         // const { token } = getState().auth; // Get the token from the state
 
         try {
-            const response = await axios.post('http://localhost:8000/user/bookmark', bookmarkData);
+            const response = await axios.post('https://movieapp-tu5n.onrender.com/user/bookmark', bookmarkData);
             return response.data.bookmarks; // Assuming API returns updated bookmarks
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to add bookmark');
@@ -41,7 +41,7 @@ export const deleteBookmark = createAsyncThunk(
     'bookmarks/deleteBookmark',
     async (bookmarkData, { rejectWithValue }) => {
         try {
-            const response = await axios.delete('http://localhost:8000/user/deletebookmark', {
+            const response = await axios.delete('https://movieapp-tu5n.onrender.com/user/deletebookmark', {
                 data: bookmarkData, // Pass data here for DELETE requests
             });
             return response.data.bookmarks; // Assuming API returns updated bookmarks

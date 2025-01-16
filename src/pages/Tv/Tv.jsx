@@ -36,7 +36,7 @@ function Tv() {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const tvRes = await axios.get('http://localhost:8000/tv/getAlltv');
+            const tvRes = await axios.get('https://movieapp-tu5n.onrender.com/tv/getAlltv');
             setData(tvRes.data || []);
         } catch (err) {
             setError('Failed to load data. Please try again later.', err);

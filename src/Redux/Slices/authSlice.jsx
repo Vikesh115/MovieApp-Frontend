@@ -12,7 +12,7 @@ export const login = createAsyncThunk(
     'auth/login',
     async (credentials, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:8000/user/login', credentials);
+            const response = await axios.post('https://movieapp-tu5n.onrender.com/user/login', credentials);
             const { token, user } = response.data;
             localStorage.setItem('token', token); // Store token in localStorage
             return { token, user }; // Return token and user data
@@ -33,7 +33,7 @@ export const getUser = createAsyncThunk(
         }
 
         try {
-            const response = await axios.get('http://localhost:8000/user/getuser', {
+            const response = await axios.get('https://movieapp-tu5n.onrender.com/user/getuser', {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

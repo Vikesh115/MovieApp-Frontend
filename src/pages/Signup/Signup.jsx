@@ -36,7 +36,7 @@ function Signup() {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/user/signup', {
+      const response = await axios.post('https://movieapp-tu5n.onrender.com/user/signup', {
         email: formData.email,
         password: formData.password,
       });

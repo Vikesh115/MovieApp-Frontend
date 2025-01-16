@@ -36,7 +36,7 @@ function Movies() {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const movieRes = await axios.get('http://localhost:8000/movie/getAllMovie');
+            const movieRes = await axios.get('https://movieapp-tu5n.onrender.com/movie/getAllMovie');
             setData(movieRes.data || []);
         } catch (err) {
             setError('Failed to load data. Please try again later.', err);

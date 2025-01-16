@@ -24,9 +24,6 @@ function Navbar({ handleLogout }) {
                 <button onClick={handleLogout}>
                     <IoMdLogOut size={30} className="text-color0" />
                 </button>
-                {/* <NavLink to="/profile" style={isActive => ({
-                    color: isActive ? "#FFFFFF" : "#5A698F"
-                })}><CgProfile size={30} /></NavLink> */}
             </div>
             {/* Tab */}
             <div className='md:flex sm:hidden lg:hidden fixed h-[10%] w-[100%] justify-between items-center bg-color3 px-4 z-20'>
@@ -47,9 +44,9 @@ function Navbar({ handleLogout }) {
                         <MdBookmark size={44} />
                     </NavLink>
                 </div>
-                <div className='flex text-color4'>
-                    <NavLink to="/profile"><CgProfile size={44} /></NavLink>
-                </div>
+                <button onClick={handleLogout}>
+                    <IoMdLogOut size={30} className="text-color0" />
+                </button>
             </div>
             {/* Mobile */}
             <div className='sm:flex md:hidden lg:hidden fixed h-[6%] w-[100%] justify-between items-center bg-color3 px-2 z-30'>
@@ -62,9 +59,9 @@ function Navbar({ handleLogout }) {
                     <NavLink to="/tv"><PiTelevisionFill size={24} /></NavLink>
                     <NavLink to="/bookmark"><MdBookmark size={24} /></NavLink>
                 </div>
-                <div className='flex text-color4'>
-                    <NavLink to="/profile"><CgProfile size={26} /></NavLink>
-                </div>
+                <button onClick={handleLogout}>
+                    <IoMdLogOut size={30} className="text-color0" />
+                </button>
             </div>
         </div>
     )

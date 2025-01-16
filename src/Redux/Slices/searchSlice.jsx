@@ -13,7 +13,7 @@ export const searchAllItems = createAsyncThunk(
     'search/searchAllItems',
     async (search, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:8000/movieandtv/getTvorMovie/${search}`);
+            const response = await axios.get(`https://movieapp-tu5n.onrender.com/movieandtv/getTvorMovie/${search}`);
             return response.data; // Expecting an array of results from the backend
         } catch (error) {
             // Return meaningful error message
@@ -27,7 +27,7 @@ export const searchMovieItems = createAsyncThunk(
     'search/searchMovieItems',
     async (search, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:8000/movie/getMovie/${search}`);
+            const response = await axios.get(`https://movieapp-tu5n.onrender.com/movie/getMovie/${search}`);
             return response.data; // Expecting an array of results from the backend
         } catch (error) {
             // Return meaningful error message
@@ -41,7 +41,7 @@ export const searchTvItems = createAsyncThunk(
     'search/searchTvItems',
     async (search, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:8000/tv/getTv/${search}`);
+            const response = await axios.get(`https://movieapp-tu5n.onrender.com/tv/getTv/${search}`);
             return response.data; // Expecting an array of results from the backend
         } catch (error) {
             // Return meaningful error message
@@ -55,7 +55,7 @@ export const searchBookmarkItems = createAsyncThunk(
     'search/searchBookmarkItems',
     async ({ userId, search }, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:8000/user/searchbookmark', {
+            const response = await axios.post('https://movieapp-tu5n.onrender.com/user/searchbookmark', {
                 userId,
                 search
             });
