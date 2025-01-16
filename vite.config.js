@@ -8,4 +8,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://movieapp-tu5n.onrender.com",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
