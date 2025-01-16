@@ -7,6 +7,7 @@ import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoSearch } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Tv() {
@@ -153,9 +154,13 @@ function Tv() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
+                                            <Link
+                                                key={item.id}
+                                                to={`/tv/${item.id}`}
+                                                className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                            >
                                                 Play
-                                            </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -222,9 +227,13 @@ function Tv() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
+                                            <Link
+                                                key={item.id}
+                                                to={`/tv/${item.id}`}
+                                                className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                            >
                                                 Play
-                                            </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

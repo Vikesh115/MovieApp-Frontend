@@ -7,6 +7,8 @@ import Bookmark from './pages/Bookmark/Bookmark';
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Movies from "./pages/Movies/Movies";
 import Tv from "./pages/Tv/Tv";
+import MovieDetail from "./pages/viewDetail/MovieDetail";
+import TvDetail from "./pages/viewDetail/TvDetail";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, setToken, setUser } from "./Redux/Slices/authSlice";
 
@@ -42,6 +44,8 @@ function App() {
             <Route path="/movie" element={<Movies />} />
             <Route path="/tv" element={<Tv />} />
             <Route path="/bookmark" element={<Bookmark />} />
+            <Route path="/movie/:id" element={<MovieDetail />} />
+            <Route path="/tv/:id" element={<TvDetail />} />
           </Routes>
         </>
       ) : (
@@ -54,18 +58,3 @@ function App() {
   )
 }
 export default App;
-
-// {token ? (
-//   <>
-//     <Navbar handleLogout={handleLogout} />
-// <Routes>
-//   <Route path="/" element={<Home />} />
-//   <Route path="/bookmark" element={<Bookmark />} />
-// </Routes>
-//   </>
-// ) : (
-//   <Routes>
-//     <Route path="/" element={<Login />} />
-//     <Route path="/signup" element={<Signup />} />
-//   </Routes>
-// )}

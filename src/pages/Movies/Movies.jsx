@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchMovieItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
 import { addBookmark, deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
+import { Link } from 'react-router-dom';
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
@@ -152,9 +153,13 @@ function Movies() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
+                                            <Link
+                                                key={item.id}
+                                                to={`/movie/${item.id}`}
+                                                className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                            >
                                                 Play
-                                            </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +181,7 @@ function Movies() {
                 </div>
             )}
 
-            
+
 
             {/* Recommended Section */}
             <div className="mt-8">
@@ -223,9 +228,16 @@ function Movies() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
+                                            <Link
+                                                key={item.id}
+                                                to={`/movie/${item.id}`}
+                                                className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                            >
                                                 Play
-                                            </div>
+                                            </Link>
+                                            {/* <div className='flex pr-4'>
+                                                Play
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
