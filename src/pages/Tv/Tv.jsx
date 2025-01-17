@@ -54,13 +54,13 @@ function Tv() {
     };
 
     const handleBookmark = (item) => {
-        if (!user || !user._id) {
+        if (!user) {
             alert('Please log in to bookmark items.');
             return;
         }
 
         const bookmarkData = {
-            userId: user._id,
+            userId: user,
             itemId: item.id,
             type: item.media_type,
         };

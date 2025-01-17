@@ -16,6 +16,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
       const storedUser = localStorage.getItem('user');
@@ -25,7 +26,7 @@ function App() {
           dispatch(setUser(storedUser));  // Set the user in Redux
           dispatch(setToken(storedToken)); // Set the token in Redux
       }
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   const handleLogout = () => {
       localStorage.removeItem('user');

@@ -22,13 +22,13 @@ const Bookmark = () => {
     }
   }, [search, dispatch]);
 
-  console.log();
-
   useEffect(() => {
+    console.log("User in useEffect:", user);
     if (user) {
-      dispatch(fetchBookmarks(user));
+        dispatch(fetchBookmarks(user));
     }
-  }, [dispatch, user]);
+}, [user, dispatch]);
+
 
   useEffect(() => {
     if (user && user && search.trim()) {
@@ -56,7 +56,7 @@ const Bookmark = () => {
     }
 
     const bookmarkData = {
-      userId: user._id,
+      userId: user,
       itemId: item.id,
       type: item.media_type,
     };
@@ -71,7 +71,7 @@ const Bookmark = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      dispatch(searchBookmarkItems({ userId: user._id, search })); // Search dispatch
+      dispatch(searchBookmarkItems({ userId: user, search })); // Search dispatch
     }
   };
 

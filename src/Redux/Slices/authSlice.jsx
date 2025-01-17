@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const initialState = {
     // token: localStorage.getItem('token')||null,
-    token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
+    token: !!localStorage.getItem('token'),
+    // token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
     user: null, 
     loading: false,
     error: null,
