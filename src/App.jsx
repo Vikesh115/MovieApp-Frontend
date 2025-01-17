@@ -18,7 +18,7 @@ function App() {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
+      const storedUser = localStorage.getItem('user');
       const storedToken = localStorage.getItem('token');
 
       if (storedUser && storedToken) {

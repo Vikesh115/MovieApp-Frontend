@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-    token: localStorage.getItem('token')||null,
+    // token: localStorage.getItem('token')||null,
+    token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
     user: null, 
     loading: false,
     error: null,
@@ -36,7 +37,7 @@ export const getUser = createAsyncThunk(
             const response = await axios.get('https://movieapp-tu5n.onrender.com/user/getuser', {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
+            localStorage.setItem('user', response.data.user._id); // Store token in localStorage
             console.log('User data fetched:', response.data.user); // Debug user data
             return response.data.user; // Return the user object
         } catch (error) {

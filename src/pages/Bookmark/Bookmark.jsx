@@ -25,14 +25,14 @@ const Bookmark = () => {
   console.log();
 
   useEffect(() => {
-    if (user?._id) {
-      dispatch(fetchBookmarks(user._id));
+    if (user) {
+      dispatch(fetchBookmarks(user));
     }
   }, [dispatch, user]);
 
   useEffect(() => {
-    if (user && user._id && search.trim()) {
-      dispatch(searchBookmarkItems({ userId: user._id, search }));  // Dispatching with the user ID and search query
+    if (user && user && search.trim()) {
+      dispatch(searchBookmarkItems({ userId: user, search }));  // Dispatching with the user ID and search query
     } else if (!search.trim()) {
       dispatch(clearSearchResults()); // Clear search results if query is empty
     }
@@ -50,7 +50,7 @@ const Bookmark = () => {
   };
 
   const handleBookmark = (item) => {
-    if (!user || !user._id) {
+    if (!user) {
       alert('Please log in to bookmark items.');
       return;
     }
