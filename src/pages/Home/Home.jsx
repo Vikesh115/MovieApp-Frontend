@@ -7,7 +7,7 @@ import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoSearch } from 'react-icons/io5';
-
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Home() {
@@ -90,6 +90,8 @@ function Home() {
         return <div className="text-center text-red-500">{error}</div>;
     }
 
+    const itemType = bookmarks.media_type.movie;
+
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
             {/* Search Bar */}
@@ -151,7 +153,7 @@ function Home() {
 
                                     {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
+                                        <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
@@ -220,14 +222,28 @@ function Home() {
 
                                     {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
+                                        <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
-                                                Play
-                                            </div>
+                                            {itemType ? (
+                                                <Link
+                                                    key={item.id}
+                                                    to={`/movie/${item.id}`}
+                                                    className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                                >
+                                                    Play
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    key={item.id}
+                                                    to={`/tv/${item.id}`}
+                                                    className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                                >
+                                                    Play
+                                                </Link>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
