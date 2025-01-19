@@ -156,9 +156,13 @@ function Home() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
-                                                Play
-                                            </div>
+                                            <Link
+                                                    key={item.id}
+                                                    to={`/detail/${item.id}`}
+                                                    className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                                >
+                                                    Play
+                                                </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -300,9 +304,13 @@ function Home() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            <div className='flex pr-4'>
-                                                Play
-                                            </div>
+                                            <Link
+                                                    key={item.id}
+                                                    to={`/detail/${item.id}`}
+                                                    className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
+                                                >
+                                                    Play
+                                                </Link>
                                         </div>
                                     </div>
                                 </div>
