@@ -11,6 +11,7 @@ import MovieDetail from "./pages/viewDetail/MovieDetail";
 import TvDetail from "./pages/viewDetail/TvDetail";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, setToken, setUser } from "./Redux/Slices/authSlice";
+import MovieOrTvDetails from "./pages/viewDetail/MovieOrTvDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
             <Route path="/bookmark" element={<Bookmark />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/tv/:id" element={<TvDetail />} />
+            <Route path="/detail/:id" element={<MovieOrTvDetails />} />
           </Routes>
         </>
       ) : (

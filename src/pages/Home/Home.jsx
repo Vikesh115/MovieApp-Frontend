@@ -90,8 +90,6 @@ function Home() {
         return <div className="text-center text-red-500">{error}</div>;
     }
 
-    const itemType = data.media_type.movie;
-
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
             {/* Search Bar */}
@@ -227,23 +225,13 @@ function Home() {
                                                 size={50}
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
-                                            {itemType ? (
                                                 <Link
                                                     key={item.id}
-                                                    to={`/movie/${item.id}`}
+                                                    to={`/detail/${item.id}`}
                                                     className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
                                                 >
                                                     Play
                                                 </Link>
-                                            ) : (
-                                                <Link
-                                                    key={item.id}
-                                                    to={`/tv/${item.id}`}
-                                                    className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
-                                                >
-                                                    Play
-                                                </Link>
-                                            )}
                                         </div>
                                     </div>
                                 </div>
