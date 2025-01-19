@@ -90,7 +90,7 @@ function Home() {
         return <div className="text-center text-red-500">{error}</div>;
     }
 
-    const itemType = bookmarks.media_type.movie;
+    const itemType = data.media_type.movie;
 
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
