@@ -10,7 +10,7 @@ const MovieOrTvDetails = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await fetch(`https://movieapp-tu5n.onrender.com/detail/${id}`);
+        const response = await fetch(`https://movieapp-tu5n.onrender.com/movieandtv/detail/${id}`);
         const data = await response.json();
         setDetail(data);
         setLoading(false);
