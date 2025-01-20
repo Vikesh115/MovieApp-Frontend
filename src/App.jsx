@@ -44,7 +44,7 @@ console.log(getUser.email);
     <>
       {token  ? (
         <>
-          <Navbar handleLogout={handleLogout}/>
+          <Navbar/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movie" element={<Movies />} />

@@ -2,12 +2,11 @@ import React from 'react'
 import { MdMovie, MdLocalMovies, MdBookmark } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
-import { IoMdLogOut } from "react-icons/io";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 import { NavLink } from 'react-router-dom'
 
-function Navbar({ handleLogout }) {
+function Navbar() {
     return (
         <div>
             {/* Desktop */}

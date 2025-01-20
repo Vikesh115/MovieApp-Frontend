@@ -6,17 +6,6 @@ import { useSelector } from "react-redux";
 function Profile({ handleLogout }) {
   const [open, setOpen] = useState(true)
   const getUser = useSelector((state)=> state.auth)
-  let email = '';
-
-// Check if getUser is an object and getUser.email is a string
-if (getUser && typeof getUser.email === 'string') {
-  email = getUser.email.split('@')[0].replace(/[0-9]/g, '');
-} else {
-  console.error('Invalid email:', getUser?.email);
-}
-
-console.log(email); // The email without numbers
-
   
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -42,7 +31,7 @@ console.log(email); // The email without numbers
                   </DialogTitle>
                   <div className="">
                     <p className='text-color4 font-extrabold text-xl'>
-                    Hey! {email}  
+                    Hey! {getUser.email}  
                     </p>
                     <p className="text-sm text-gray-500">
                       Are you sure you want to Logout your account?
