@@ -2,9 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-    // token: localStorage.getItem('token')||null,
-    token: !!localStorage.getItem('token'),
-    // token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
+    token: localStorage.getItem('token')||null,
+    email: localStorage.getItem('email') || null,
     user: null, 
     loading: false,
     error: null,
@@ -39,7 +38,8 @@ export const getUser = createAsyncThunk(
                 headers: { Authorization: `Bearer ${token}` },
             });
             localStorage.setItem('user', response.data.user._id); // Store token in localStorage
-            console.log('User data fetched:', response.data.user); // Debug user data
+            localStorage.setItem('email', response.data.user.email);
+            console.log('User data fetched:', response.data); // Debug user data
             return response.data.user; // Return the user object
         } catch (error) {
             console.error('Error fetching user data:', error); // Debug error
@@ -87,6 +87,7 @@ const authSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload; // Update user data
+                state.email = action.payload;
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.loading = false;

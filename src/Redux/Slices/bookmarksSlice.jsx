@@ -8,21 +8,6 @@ const initialState = {
 };
 
 // Fetch bookmarks for a specific user
-// export const fetchBookmarks = createAsyncThunk(
-//     'bookmarks/fetchBookmarks',
-//     async (userId, {rejectWithValue }) => {
-//         try {
-//             const response = await axios.get(`https://movieapp-tu5n.onrender.com/user/getbookmark?userId=${userId}`);
-//             // console.log("fetch", response?.data?.bookmarks);
-//             const data = await response?.data?.bookmarks;
-//             return data; // Assuming API returns bookmarks in this structure
-//         } catch (error) {
-//             return rejectWithValue(error.response?.data?.message || 'Failed to fetch bookmarks');
-//         }
-//     }
-// );
-
-// Fetch bookmarks for a specific user
 export const fetchBookmarks = createAsyncThunk(
     'bookmarks/fetchBookmarks',
     async (user, { rejectWithValue }) => {
@@ -50,8 +35,6 @@ export const fetchBookmarks = createAsyncThunk(
 export const addBookmark = createAsyncThunk(
     'bookmarks/addBookmark',
     async (bookmarkData, { rejectWithValue }) => {
-        // const { token } = getState().auth; // Get the token from the state
-
         try {
             const response = await axios.post('https://movieapp-tu5n.onrender.com/user/bookmark', bookmarkData);
             return response?.data?.bookmarks; // Assuming API returns updated bookmarks

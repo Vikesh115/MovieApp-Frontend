@@ -3,6 +3,7 @@ import { MdMovie, MdLocalMovies, MdBookmark } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { IoMdLogOut } from "react-icons/io";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 import { NavLink } from 'react-router-dom'
 
@@ -36,9 +37,9 @@ function Navbar({ handleLogout }) {
                         ><MdBookmark size={28} /></NavLink>
                     </div>
                 </div>
-                <button onClick={handleLogout}>
-                    <IoMdLogOut size={30} className="text-color0" />
-                </button>
+                <NavLink to="/profile">
+                    <IoPersonCircleSharp size={30} className="text-color0" />
+                </NavLink>
             </div>
             {/* Tab */}
             <div className='md:flex sm:hidden lg:hidden fixed h-[10%] w-[100%] justify-between items-center bg-color3 px-4 z-20'>
@@ -75,9 +76,9 @@ function Navbar({ handleLogout }) {
                         <MdBookmark size={44} />
                     </NavLink>
                 </div>
-                <button onClick={handleLogout}>
-                    <IoMdLogOut size={30} className="text-color0" />
-                </button>
+                <NavLink to="/profile">
+                    <IoPersonCircleSharp size={30} className="text-color0" />
+                </NavLink>
             </div>
             {/* Mobile */}
             <div className='sm:flex md:hidden lg:hidden fixed h-[6%] w-[100%] justify-between items-center bg-color3 px-2 z-30'>
@@ -106,9 +107,9 @@ function Navbar({ handleLogout }) {
                     })}
                     ><MdBookmark size={24} /></NavLink>
                 </div>
-                <button onClick={handleLogout}>
-                    <IoMdLogOut size={30} className="text-color0" />
-                </button>
+                <NavLink to="/profile">
+                    <IoPersonCircleSharp size={30} className="text-color0" />
+                </NavLink>
             </div>
         </div>
     )

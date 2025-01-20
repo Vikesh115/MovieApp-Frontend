@@ -12,12 +12,16 @@ import TvDetail from "./pages/viewDetail/TvDetail";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, setToken, setUser } from "./Redux/Slices/authSlice";
 import MovieOrTvDetails from "./pages/viewDetail/MovieOrTvDetails";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
+  const getUser = useSelector((state)=> state.auth)
+
+console.log(getUser.email);
 
   useEffect(() => {
       const storedUser = localStorage.getItem('user');
@@ -49,6 +53,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/tv/:id" element={<TvDetail />} />
             <Route path="/detail/:id" element={<MovieOrTvDetails />} />
+            <Route path="/profile" element={<Profile handleLogout={handleLogout}/>}/>
           </Routes>
         </>
       ) : (
