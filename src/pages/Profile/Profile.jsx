@@ -8,14 +8,15 @@ function Profile({ handleLogout }) {
   const getUser = useSelector((state)=> state.auth)
   let email = '';
 
-  // Check if getUser and getUser.email are defined and are strings
-  if (getUser && typeof getUser.email === 'string') {
-    email = getUser.email.split('@')[0].replace(/[0-9]/g, '');
-  } else {
-    console.error('Invalid email:', getUser?.email);
-  }
-  
-  console.log(email); // The email without numbers
+// Check if getUser is an object and getUser.email is a string
+if (getUser && typeof getUser.email === 'string') {
+  email = getUser.email.split('@')[0].replace(/[0-9]/g, '');
+} else {
+  console.error('Invalid email:', getUser?.email);
+}
+
+console.log(email); // The email without numbers
+
   
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
