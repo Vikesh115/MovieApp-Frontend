@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { IoLogOut } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 function Profile({ handleLogout }) {
   const [open, setOpen] = useState(true)
-  const getUser = useSelector((state)=> state.auth)
-  
+  const storedEmail = localStorage.getItem('email');
+  console.log(storedEmail);
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -31,7 +31,7 @@ function Profile({ handleLogout }) {
                   </DialogTitle>
                   <div className="">
                     <p className='text-color4 font-extrabold text-xl'>
-                    Hey! {getUser.email}  
+                    Hey! {storedEmail}  
                     </p>
                     <p className="text-sm text-gray-500">
                       Are you sure you want to Logout your account?

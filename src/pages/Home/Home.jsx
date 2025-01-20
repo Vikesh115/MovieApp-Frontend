@@ -16,12 +16,13 @@ function Home() {
     // const { user } = useSelector((state) => state.auth);
     // const { bookmarks } = useSelector((state) => state.bookmarks);
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
-    const getUser = useSelector((state)=> state.auth)
+    // const getUser = useSelector((state)=> state.auth)
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const storedEmail = localStorage.getItem('email');
+    console.log(storedEmail);
     // Fetch Recommended and Trending Data
     useEffect(() => {
         fetchData();
@@ -93,7 +94,7 @@ function Home() {
 
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
-            <p className='flex lg:pt-5 pl-2 lg:text-lg md:text-xl'>Welcome, {getUser.email}</p>
+            <p className='flex lg:pt-5 pl-2 lg:text-lg md:text-xl'>Welcome, {storedEmail}</p>
             {/* Search Bar */}
             <div className="flex items-center space-x-2 p-4 bg-gray-800">
                 <button

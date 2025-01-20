@@ -19,9 +19,11 @@ function App() {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
-  const getUser = useSelector((state)=> state.auth)
+  const storedEmail = localStorage.getItem('email');
+console.log(storedEmail);
+//   const getUser = useSelector((state)=> state.auth)
 
-console.log(getUser.email);
+// console.log(getUser.email);
 
   useEffect(() => {
       const storedUser = localStorage.getItem('user');
