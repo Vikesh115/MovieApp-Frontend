@@ -13,11 +13,27 @@ function Navbar({ handleLogout }) {
             <div className='lg:flex sm:hidden fixed md:hidden h-[100%] justify-between items-center flex-col bg-color3 w-[6%] py-4 z-10'>
                 <div className='flex-col gap-3'>
                     <NavLink to="/"><MdMovie color='#FC4747' size={36} /></NavLink>
-                    <div className='flex-col justify-center mt-10 text-color2'>
-                        <NavLink to="/" ><RxDashboard size={28} /></NavLink>
-                        <NavLink to="/movie" className='flex mt-3'><MdLocalMovies size={28} /></NavLink>
-                        <NavLink to="/tv" className='flex mt-3'><PiTelevisionFill size={28} /></NavLink>
-                        <NavLink to="/bookmark" className='flex mt-3'><MdBookmark size={28} /></NavLink>
+                    <div className='flex-col justify-center mt-10'>
+                        <NavLink to="/" 
+                        style={({ isActive }) => ({
+                            color: isActive ? "White" : 'gray'
+                        })}
+                        ><RxDashboard size={28} /></NavLink>
+                        <NavLink to="/movie" className='flex mt-3'
+                        style={({ isActive }) => ({
+                            color: isActive ? "White" : 'gray'
+                        })}
+                        ><MdLocalMovies size={28} /></NavLink>
+                        <NavLink to="/tv" className='flex mt-3'
+                        style={({ isActive }) => ({
+                            color: isActive ? "White" : 'gray'
+                        })}
+                        ><PiTelevisionFill size={28} /></NavLink>
+                        <NavLink to="/bookmark" className='flex mt-3'
+                        style={({ isActive }) => ({
+                            color: isActive ? "White" : 'gray'
+                        })}
+                        ><MdBookmark size={28} /></NavLink>
                     </div>
                 </div>
                 <button onClick={handleLogout}>
@@ -29,17 +45,33 @@ function Navbar({ handleLogout }) {
                 <div className='flex'>
                     <NavLink to="/"><MdMovie size={48} color='#FC4747' /></NavLink>
                 </div>
-                <div className='flex gap-3 text-color2'>
-                    <NavLink to="/">
+                <div className='flex gap-3'>
+                    <NavLink to="/"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    >
                         <RxDashboard size={44} />
                     </NavLink>
-                    <NavLink to="/movie">
+                    <NavLink to="/movie"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    >
                         <MdLocalMovies size={44} />
                     </NavLink>
-                    <NavLink to="/tv">
+                    <NavLink to="/tv"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    >
                         <PiTelevisionFill size={44} />
                     </NavLink>
-                    <NavLink to="/bookmark">
+                    <NavLink to="/bookmark"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    >
                         <MdBookmark size={44} />
                     </NavLink>
                 </div>
@@ -53,10 +85,26 @@ function Navbar({ handleLogout }) {
                     <NavLink to="/"><MdMovie size={28} /></NavLink>
                 </div>
                 <div className='flex gap-2 text-color2'>
-                    <NavLink to="/"><RxDashboard size={24} /></NavLink>
-                    <NavLink to="/movie"><MdLocalMovies size={24} /></NavLink>
-                    <NavLink to="/tv"><PiTelevisionFill size={24} /></NavLink>
-                    <NavLink to="/bookmark"><MdBookmark size={24} /></NavLink>
+                    <NavLink to="/"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    ><RxDashboard size={24} /></NavLink>
+                    <NavLink to="/movie"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    ><MdLocalMovies size={24} /></NavLink>
+                    <NavLink to="/tv"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    ><PiTelevisionFill size={24} /></NavLink>
+                    <NavLink to="/bookmark"
+                    style={({ isActive }) => ({
+                        color: isActive ? "White" : 'gray'
+                    })}
+                    ><MdBookmark size={24} /></NavLink>
                 </div>
                 <button onClick={handleLogout}>
                     <IoMdLogOut size={30} className="text-color0" />
