@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchMovieItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
-import { addBookmark, deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
+import { addBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
 import { Link } from 'react-router-dom';
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
@@ -66,8 +66,6 @@ function Movies() {
         };
 
         if (isBookmarked(item.id)) {
-            dispatch(deleteBookmark(bookmarkData));
-        } else {
             dispatch(addBookmark(bookmarkData));
         }
     };
@@ -181,9 +179,6 @@ function Movies() {
                 </div>
             )}
 
-
-
-            {/* Recommended Section */}
             <div className="mt-8">
                 <h2 className="text-color4 font-medium text-xl mb-4 pl-2">Movies</h2>
                 <div className="flex flex-wrap">

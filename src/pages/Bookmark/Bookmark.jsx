@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchBookmarkItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
-import { addBookmark, deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
+import { deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
 import { fetchBookmarks } from '../../Redux/Slices/bookmarksSlice';
-import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
+import {MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
@@ -46,9 +46,6 @@ const Bookmark = () => {
   const getReleaseYear = (date) => (date ? new Date(date).getFullYear() : "N/A");
   const getRating = (isAdult) => (isAdult ? "18+" : "PG");
 
-  const isBookmarked = (itemId) => {
-    return Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId);
-  };
 
   const handleBookmark = (item) => {
     if (!user) {
@@ -62,11 +59,7 @@ const Bookmark = () => {
       type: item.media_type,
     };
 
-    if (isBookmarked(item.id)) {
       dispatch(deleteBookmark(bookmarkData));
-    } else {
-      dispatch(addBookmark(bookmarkData));
-    }
   };
 
   const handleSearch = (e) => {
@@ -84,9 +77,9 @@ const Bookmark = () => {
     return <div className="text-center text-red-500">{error}</div>;
   }
 
-  if (!bookmarks || (!bookmarks.movies?.length && !bookmarks.tv?.length)) {
-    return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>No bookmarks available.</p>;
-  }
+  // if (!bookmarks || (!bookmarks.movies?.length && !bookmarks.tv?.length)) {
+  //   return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>No bookmarks available.</p>;
+  // }
 
   return (
     <div className="p-2 lg:pl-32 lg:pt-0 sm:pt-12 md:pt-36 bg-color1 text-color4 h-full">
@@ -124,16 +117,7 @@ const Bookmark = () => {
                 />
                 {/* Bookmark Icon */}
                 <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                  {isBookmarked(item.id) ? (
-                    <MdBookmark
-                      className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent bubbling issues
-                        handleBookmark(item);
-                      }}
-                      size={32}
-                    />
-                  ) : (
+                  
                     <MdBookmarkBorder
                       className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
                       onClick={(e) => {
@@ -142,7 +126,6 @@ const Bookmark = () => {
                       }}
                       size={32}
                     />
-                  )}
                 </div>
 
                 {/* Play Icon (Visible only on hover) */}
@@ -184,16 +167,7 @@ const Bookmark = () => {
                 />
                 {/* Bookmark Icon */}
                 <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                  {isBookmarked(item.id) ? (
-                    <MdBookmark
-                      className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent bubbling issues
-                        handleBookmark(item);
-                      }}
-                      size={32}
-                    />
-                  ) : (
+                
                     <MdBookmarkBorder
                       className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
                       onClick={(e) => {
@@ -202,7 +176,7 @@ const Bookmark = () => {
                       }}
                       size={32}
                     />
-                  )}
+
                 </div>
 
                 {/* Play Icon (Visible only on hover) */}
@@ -252,16 +226,7 @@ const Bookmark = () => {
 
                   {/* Bookmark Icon */}
                   <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                    {isBookmarked(item.id) ? (
-                      <MdBookmark
-                        className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent bubbling issues
-                          handleBookmark(item);
-                        }}
-                        size={32}
-                      />
-                    ) : (
+                      
                       <MdBookmarkBorder
                         className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
                         onClick={(e) => {
@@ -270,7 +235,7 @@ const Bookmark = () => {
                         }}
                         size={32}
                       />
-                    )}
+                  
                   </div>
 
                   {/* Play Icon (Visible only on hover) */}
@@ -320,16 +285,7 @@ const Bookmark = () => {
 
                   {/* Bookmark Icon */}
                   <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                    {isBookmarked(item.id) ? (
-                      <MdBookmark
-                        className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent bubbling issues
-                          handleBookmark(item);
-                        }}
-                        size={32}
-                      />
-                    ) : (
+                    
                       <MdBookmarkBorder
                         className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
                         onClick={(e) => {
@@ -338,7 +294,6 @@ const Bookmark = () => {
                         }}
                         size={32}
                       />
-                    )}
                   </div>
 
                   {/* Play Icon (Visible only on hover) */}

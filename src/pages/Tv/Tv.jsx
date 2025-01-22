@@ -182,7 +182,6 @@ function Tv() {
                 </div>
             )}
 
-            {/* Recommended Section */}
             <div className="mt-8">
                 <h2 className="text-color4 font-medium text-xl mb-4 pl-2">TV Series</h2>
                 <div className="flex flex-wrap">
