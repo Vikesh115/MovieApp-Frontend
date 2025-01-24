@@ -77,9 +77,9 @@ const Bookmark = () => {
     return <div className="text-center text-red-500">{error}</div>;
   }
 
-  // if (!bookmarks || (!bookmarks.movies?.length && !bookmarks.tv?.length)) {
-  //   return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>No bookmarks available.</p>;
-  // }
+  if (!bookmarks || (!bookmarks.movies?.length && !bookmarks.tv?.length)) {
+    return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>No bookmarks available.</p>;
+  }
 
   return (
     <div className="p-2 lg:pl-32 lg:pt-0 sm:pt-12 md:pt-36 bg-color1 text-color4 h-full">
