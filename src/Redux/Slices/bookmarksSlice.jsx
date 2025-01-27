@@ -28,9 +28,6 @@ export const fetchBookmarks = createAsyncThunk(
     }
 );
 
-
-
-
 // Add a bookmark
 export const addBookmark = createAsyncThunk(
     'bookmarks/addBookmark',
@@ -82,6 +79,10 @@ const bookmarksSlice = createSlice({
             })
 
             // Add bookmark
+            .addCase(addBookmark.pending, (state) => {
+                state.loading = true;
+                state.error = null;            
+            })
             .addCase(addBookmark.fulfilled, (state, action) => {
                 state.bookmarks = action.payload; // Replace with updated bookmarks
             })
@@ -90,6 +91,10 @@ const bookmarksSlice = createSlice({
             })
 
             // Delete bookmark
+            .addCase(deleteBookmark.pending, (state) => {
+                state.loading = true;
+                state.error = null;            
+            })
             .addCase(deleteBookmark.fulfilled, (state, action) => {
                 state.bookmarks = action.payload; // Replace with updated bookmarks array
             })
