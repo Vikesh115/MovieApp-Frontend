@@ -71,7 +71,7 @@ function Signup() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className='bg-color3 text-color4 p-2 w-[100%]'
+                className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
             <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
@@ -85,7 +85,7 @@ function Signup() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className='bg-color3 text-color4 p-2 w-[100%]'
+                className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
             <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
@@ -99,7 +99,7 @@ function Signup() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className='bg-color3 text-color4 p-2 w-[100%]'
+                className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
             <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}

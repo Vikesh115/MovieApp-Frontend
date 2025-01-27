@@ -43,7 +43,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 aria-label="Email"
-                className='bg-color3 text-color4 p-2 w-[100%]'
+                className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
             <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
@@ -54,7 +54,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 aria-label="Password"
-                className='bg-color3 text-color4 p-2 w-[100%]'
+                className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
             <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
