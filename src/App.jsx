@@ -38,6 +38,7 @@ console.log(storedEmail);
   const handleLogout = () => {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      localStorage.removeItem('email');
       dispatch(logout()); // Reset Redux store
       navigate('/');
   };
