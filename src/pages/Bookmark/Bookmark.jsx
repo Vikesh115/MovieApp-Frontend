@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchBookmarkItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
-import { deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
 import { fetchBookmarks } from '../../Redux/Slices/bookmarksSlice';
 import {MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
@@ -45,22 +44,6 @@ const Bookmark = () => {
 
   const getReleaseYear = (date) => (date ? new Date(date).getFullYear() : "N/A");
   const getRating = (isAdult) => (isAdult ? "18+" : "PG");
-
-
-  const handleBookmark = (item) => {
-    if (!user) {
-      alert('Please log in to bookmark items.');
-      return;
-    }
-
-    const bookmarkData = {
-      userId: user,
-      itemId: item.id,
-      type: item.media_type,
-    };
-
-      dispatch(deleteBookmark(bookmarkData));
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -120,10 +103,7 @@ const Bookmark = () => {
                   
                     <MdBookmarkBorder
                       className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent bubbling issues
-                        handleBookmark(item);
-                      }}
+                      onClick={()=>{}}
                       size={32}
                     />
                 </div>
@@ -170,10 +150,7 @@ const Bookmark = () => {
                 
                     <MdBookmarkBorder
                       className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent bubbling issues
-                        handleBookmark(item);
-                      }}
+                      onClick={()=>{}}
                       size={32}
                     />
 
@@ -229,10 +206,7 @@ const Bookmark = () => {
                       
                       <MdBookmarkBorder
                         className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent bubbling issues
-                          handleBookmark(item);
-                        }}
+                        onClick={()=>{}}
                         size={32}
                       />
                   
@@ -288,10 +262,7 @@ const Bookmark = () => {
                     
                       <MdBookmarkBorder
                         className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent bubbling issues
-                          handleBookmark(item);
-                        }}
+                        onClick={()=>{}}
                         size={32}
                       />
                   </div>

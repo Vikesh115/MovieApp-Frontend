@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchMovieItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
-import { addBookmark, deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
 import { Link } from 'react-router-dom';
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
@@ -13,7 +12,7 @@ import axios from 'axios';
 function Movies() {
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
+    // const { user } = useSelector((state) => state.auth);
     const { bookmarks } = useSelector((state) => state.bookmarks);
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
 
@@ -51,25 +50,6 @@ function Movies() {
 
     const isBookmarked = (itemId) => {
         return Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId);
-    };
-
-    const handleBookmark = (item) => {
-        if (!user) {
-            alert('Please log in to bookmark items.');
-            return;
-        }
-
-        const bookmarkData = {
-            userId: user,
-            itemId: item.id,
-            type: item.media_type,
-        };
-
-        if (isBookmarked(item.id)) {
-            dispatch(deleteBookmark(bookmarkData));
-        } else {
-            dispatch(addBookmark(bookmarkData));
-        }
     };
 
     const handleSearch = (e) => {
@@ -128,19 +108,13 @@ function Movies() {
                                         {isBookmarked(item.id) ? (
                                             <MdBookmark
                                                 className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
+                                                onClick={()=>{}}
                                                 size={32}
                                             />
                                         ) : (
                                             <MdBookmarkBorder
                                                 className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
+                                                onClick={()=>{}}
                                                 size={32}
                                             />
                                         )}
@@ -200,19 +174,13 @@ function Movies() {
                                         {isBookmarked(item.id) ? (
                                             <MdBookmark
                                                 className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
+                                                onClick={()=>{}}
                                                 size={32}
                                             />
                                         ) : (
                                             <MdBookmarkBorder
                                                 className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
+                                                onClick={()=>{}}
                                                 size={32}
                                             />
                                         )}

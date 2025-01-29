@@ -28,34 +28,6 @@ export const fetchBookmarks = createAsyncThunk(
     }
 );
 
-// Add a bookmark
-export const addBookmark = createAsyncThunk(
-    'bookmarks/addBookmark',
-    async (bookmarkData, { rejectWithValue }) => {
-        try {
-            const response = await axios.post('https://movieapp-tu5n.onrender.com/user/bookmark', bookmarkData);
-            return response?.data?.bookmarks; // Assuming API returns updated bookmarks
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || 'Failed to add bookmark');
-        }
-    }
-);
-
-// Delete a bookmark
-export const deleteBookmark = createAsyncThunk(
-    'bookmarks/deleteBookmark',
-    async (bookmarkData, { rejectWithValue }) => {
-        try {
-            const response = await axios.delete('https://movieapp-tu5n.onrender.com/user/deletebookmark', {
-                data: bookmarkData, // Pass data here for DELETE requests
-            });
-            return response?.data?.bookmarks; // Assuming API returns updated bookmarks
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || 'Failed to delete bookmark');
-        }
-    }
-);
-
 
 // Bookmark slice
 const bookmarksSlice = createSlice({
@@ -77,30 +49,6 @@ const bookmarksSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-
-            // Add bookmark
-            .addCase(addBookmark.pending, (state) => {
-                state.loading = true;
-                state.error = null;            
-            })
-            .addCase(addBookmark.fulfilled, (state, action) => {
-                state.bookmarks = action.payload; // Replace with updated bookmarks
-            })
-            .addCase(addBookmark.rejected, (state, action) => {
-                state.error = action.payload;
-            })
-
-            // Delete bookmark
-            .addCase(deleteBookmark.pending, (state) => {
-                state.loading = true;
-                state.error = null;            
-            })
-            .addCase(deleteBookmark.fulfilled, (state, action) => {
-                state.bookmarks = action.payload; // Replace with updated bookmarks array
-            })
-            .addCase(deleteBookmark.rejected, (state, action) => {
-                state.error = action.payload;
-            });
     },
 });
 

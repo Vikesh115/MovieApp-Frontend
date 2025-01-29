@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchAllItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
-// import { addBookmark, deleteBookmark } from '../../Redux/Slices/bookmarksSlice'; // Adjust path as needed
-// import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
@@ -13,16 +11,14 @@ import axios from 'axios';
 function Home() {
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
-    // const { user } = useSelector((state) => state.auth);
-    // const { bookmarks } = useSelector((state) => state.bookmarks);
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
-    // const getUser = useSelector((state)=> state.auth)
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const storedEmail = localStorage.getItem('email');
     console.log(storedEmail);
+
     // Fetch Recommended and Trending Data
     useEffect(() => {
         fetchData();
@@ -50,31 +46,6 @@ function Home() {
 
     const getReleaseYear = (date) => (date ? new Date(date).getFullYear() : "N/A");
     const getRating = (isAdult) => (isAdult ? "18+" : "PG");
-
-    // const isBookmarked = (itemId) => {
-    //     return Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId);
-    // };
-
-    // const handleBookmark = (item) => {
-    //     if (!user) {
-    //         alert('Please log in to bookmark items.');
-    //         return;
-    //     }
-
-    //     const bookmarkData = {
-    //         userId: user,
-    //         itemId: item.id,
-    //         type: item.media_type,
-    //     };
-
-    //     console.log(bookmarkData);
-
-    //     if (isBookmarked(item.id)) {
-    //         dispatch(deleteBookmark(bookmarkData));
-    //     } else {
-    //         dispatch(addBookmark(bookmarkData));
-    //     }
-    // };
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -202,29 +173,6 @@ function Home() {
                                         className="w-full rounded-xl object-cover"
                                     />
 
-                                    {/* Bookmark Icon */}
-                                    {/* <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                                        {isBookmarked(item.id) ? (
-                                            <MdBookmark
-                                                className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        ) : (
-                                            <MdBookmarkBorder
-                                                className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        )}
-                                    </div> */}
-
                                     {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
@@ -276,29 +224,6 @@ function Home() {
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Bookmark Icon */}
-                                    {/* <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                                        {isBookmarked(item.id) ? (
-                                            <MdBookmark
-                                                className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        ) : (
-                                            <MdBookmarkBorder
-                                                className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        )}
-                                    </div> */}
 
                                     {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
