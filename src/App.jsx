@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, setToken, setUser } from "./Redux/Slices/authSlice";
 import MovieOrTvDetails from "./pages/viewDetail/MovieOrTvDetails";
 import Profile from "./pages/Profile/Profile";
+import { fetchBookmarks } from "./Redux/Slices/bookmarksSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,34 +21,40 @@ function App() {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
   const storedEmail = localStorage.getItem('email');
-console.log(storedEmail);
-//   const getUser = useSelector((state)=> state.auth)
+  const { bookmarks } = useSelector((state) => state.bookmarks); // Fetch bookmarks from Redux state
 
-// console.log(getUser.email);
+  console.log(storedEmail);
 
   useEffect(() => {
-      const storedUser = localStorage.getItem('user');
-      const storedToken = localStorage.getItem('token');
+    console.log("User in useEffect:", user);
+    if (user) {
+      dispatch(fetchBookmarks(user));
+    }
+  }, [user, dispatch, bookmarks]);
 
-      if (storedUser && storedToken) {
-          dispatch(setUser(storedUser));  // Set the user in Redux
-          dispatch(setToken(storedToken)); // Set the token in Redux
-      }
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
+
+    if (storedUser && storedToken) {
+      dispatch(setUser(storedUser));  // Set the user in Redux
+      dispatch(setToken(storedToken)); // Set the token in Redux
+    }
   }, [user, dispatch]);
 
   const handleLogout = () => {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      dispatch(logout()); // Reset Redux store
-      navigate('/');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    dispatch(logout()); // Reset Redux store
+    navigate('/');
   };
 
   return (
     <>
-      {token  ? (
+      {token ? (
         <>
-          <Navbar/>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movie" element={<Movies />} />
@@ -56,7 +63,7 @@ console.log(storedEmail);
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/tv/:id" element={<TvDetail />} />
             <Route path="/detail/:id" element={<MovieOrTvDetails />} />
-            <Route path="/profile" element={<Profile handleLogout={handleLogout}/>}/>
+            <Route path="/profile" element={<Profile handleLogout={handleLogout} />} />
           </Routes>
         </>
       ) : (

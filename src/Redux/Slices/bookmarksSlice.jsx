@@ -15,6 +15,7 @@ export const fetchBookmarks = createAsyncThunk(
             console.error("Invalid user data for fetching bookmarks.");
             return rejectWithValue('User ID is required.');
         }
+        console.log("fetch bookmark called");
         try {
             const response = await axios.get(
                 `https://movieapp-tu5n.onrender.com/user/getbookmark?userId=${encodeURIComponent(user)}`
@@ -28,6 +29,26 @@ export const fetchBookmarks = createAsyncThunk(
     }
 );
 
+// Toggle (add/remove) a bookmark
+export const toggleBookmark = createAsyncThunk(
+    'bookmarks/toggleBookmark',
+    async ({ userId, itemId, type, isBookmarked }, { rejectWithValue }) => {
+        try {
+            console.log(userId, itemId, type, isBookmarked);
+            const response = await axios.post("http://localhost:8000/user/togglebookmark", {
+                userId,
+                itemId,
+                type,
+                isBookmarked
+            });
+            console.log("Updated bookmarks:", response?.data?.bookmarks || []);
+            return response?.data?.bookmarks || []; // Updated bookmarks list
+        } catch (error) {
+            console.error("Error toggling bookmark:", error);
+            return rejectWithValue(error.response?.data?.message || 'Failed to toggle bookmark');
+        }
+    }
+);
 
 // Bookmark slice
 const bookmarksSlice = createSlice({
@@ -49,6 +70,19 @@ const bookmarksSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+            // Toggle bookmark
+            .addCase(toggleBookmark.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(toggleBookmark.fulfilled, (state, action) => {
+                state.loading = false;
+                state.bookmarks = action.payload;
+            })
+            .addCase(toggleBookmark.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     },
 });
 
