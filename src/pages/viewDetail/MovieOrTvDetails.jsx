@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import axios from "axios";
 
 const MovieOrTvDetails = () => {
-  const { id } = useParams(); // Get movie ID from URL
+  const { id } = useParams();
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,14 +33,11 @@ const MovieOrTvDetails = () => {
   return (
     <div className="md:pl-24 p-6 bg-color3 min-h-screen text-color4 pt-20">
       <div className="flex flex-col md:flex-row gap-6 items-center">
-        {/* Movie Poster */}
         <img
           src={`https://image.tmdb.org/t/p/w500${detail.poster_path}`}
           alt={detail.title}
           className="w-64 rounded-lg shadow-lg"
         />
-
-        {/* Movie Details */}
         <div>
           <h1 className="text-4xl font-bold">{detail.title}</h1>
           <p className=" my-4">{detail.overview}</p>

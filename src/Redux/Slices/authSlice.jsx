@@ -15,8 +15,8 @@ export const login = createAsyncThunk(
         try {
             const response = await axios.post('https://movieapp-tu5n.onrender.com/user/login', credentials);
             const { token, user } = response.data;
-            localStorage.setItem('token', token); // Store token in localStorage
-            return { token, user }; // Return token and user data
+            localStorage.setItem('token', token);
+            return { token, user };
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Login failed');
         }
@@ -26,8 +26,8 @@ export const login = createAsyncThunk(
 export const getUser = createAsyncThunk(
     'auth/getUser',
     async (_, { getState, rejectWithValue }) => {
-        const { token } = getState().auth; // Get the token from the state
-        console.log('Token in getUser:', token); // Debug token
+        const { token } = getState().auth;
+        console.log('Token in getUser:', token);
 
         if (!token) {
             return rejectWithValue('Token is missing or invalid');
@@ -37,12 +37,12 @@ export const getUser = createAsyncThunk(
             const response = await axios.get('https://movieapp-tu5n.onrender.com/user/getuser', {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            localStorage.setItem('user', response.data.user._id); // Store token in localStorage
+            localStorage.setItem('user', response.data.user._id); 
             localStorage.setItem('email', response.data.user.email);
-            console.log('User data fetched:', response.data); // Debug user data
-            return response.data.user; // Return the user object
+            console.log('User data fetched:', response.data); 
+            return response.data.user; 
         } catch (error) {
-            console.error('Error fetching user data:', error); // Debug error
+            console.error('Error fetching user data:', error); 
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch user data');
         }
     }
@@ -55,8 +55,8 @@ const authSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.token = null;
-            state.user = null; // Clear user data on logout
-            localStorage.removeItem('token'); // Remove token on logout
+            state.user = null; 
+            localStorage.removeItem('token'); 
         },
         setUser: (state, action) => {
             state.user = action.payload;
@@ -74,7 +74,7 @@ const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false;
                 state.token = action.payload.token;
-                state.user = action.payload.user; // Store user data
+                state.user = action.payload.user; 
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
@@ -86,7 +86,7 @@ const authSlice = createSlice({
             })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload; // Update user data
+                state.user = action.payload; 
                 state.email = action.payload;
             })
             .addCase(getUser.rejected, (state, action) => {

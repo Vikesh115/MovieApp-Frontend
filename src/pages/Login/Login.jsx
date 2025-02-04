@@ -46,7 +46,7 @@ const Login = () => {
                 className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
-            <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
+            <hr className="my-4 border-t-2 border-color4" /> 
             <div className='flex-col w-[100%] pt-5'>
               <input
                 type="password"
@@ -57,7 +57,7 @@ const Login = () => {
                 className='bg-color3 text-color4  focus:outline-none focus:border-none p-2 w-[100%]'
               />
             </div>
-            <hr className="my-4 border-t-2 border-color4" />  {/* Add horizontal line */}
+            <hr className="my-4 border-t-2 border-color4" />  
             <button type="submit" disabled={loading} className='flex rounded-lg w-[100%] justify-center bg-color0  text-color4 mt-3 px-20 py-3 text-xs'>
               {loading ? 'Logging in...' : 'Login to your account'}
             </button>

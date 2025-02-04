@@ -20,25 +20,20 @@ function App() {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
-  const storedEmail = localStorage.getItem('email');
-  const { bookmarks } = useSelector((state) => state.bookmarks); // Fetch bookmarks from Redux state
-
-  console.log(storedEmail);
 
   useEffect(() => {
-    console.log("User in useEffect:", user);
     if (user) {
       dispatch(fetchBookmarks(user));
     }
-  }, [user, dispatch, bookmarks]);
+  }, [user, dispatch]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
 
     if (storedUser && storedToken) {
-      dispatch(setUser(storedUser));  // Set the user in Redux
-      dispatch(setToken(storedToken)); // Set the token in Redux
+      dispatch(setUser(storedUser)); 
+      dispatch(setToken(storedToken));
     }
   }, [user, dispatch]);
 
@@ -46,7 +41,7 @@ function App() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('email');
-    dispatch(logout()); // Reset Redux store
+    dispatch(logout());
     navigate('/');
   };
 

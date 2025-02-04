@@ -3,11 +3,12 @@ import axios from 'axios';
 
 const initialState = {
     bookmarks: [],
+    bookMarked: localStorage.getItem("bookMarked") 
+    ? JSON.parse(localStorage.getItem("bookMarked")) : false,
     loading: false,
     error: null,
 };
 
-// Fetch bookmarks for a specific user
 export const fetchBookmarks = createAsyncThunk(
     'bookmarks/fetchBookmarks',
     async (user, { rejectWithValue }) => {
@@ -15,12 +16,10 @@ export const fetchBookmarks = createAsyncThunk(
             console.error("Invalid user data for fetching bookmarks.");
             return rejectWithValue('User ID is required.');
         }
-        console.log("fetch bookmark called");
         try {
             const response = await axios.get(
                 `https://movieapp-tu5n.onrender.com/user/getbookmark?userId=${encodeURIComponent(user)}`
             );
-            console.log("Fetched bookmarks:", response?.data?.bookmarks);
             return response?.data?.bookmarks;
         } catch (error) {
             console.error("Error fetching bookmarks:", error);
@@ -29,20 +28,20 @@ export const fetchBookmarks = createAsyncThunk(
     }
 );
 
-// Toggle (add/remove) a bookmark
+
 export const toggleBookmark = createAsyncThunk(
     'bookmarks/toggleBookmark',
-    async ({ userId, itemId, type, isBookmarked }, { rejectWithValue }) => {
+    async ({ userId, itemId, type }, { rejectWithValue, dispatch }) => {
         try {
-            console.log(userId, itemId, type, isBookmarked);
-            const response = await axios.post("http://localhost:8000/user/togglebookmark", {
+            const response = await axios.post("https://movieapp-tu5n.onrender.com/user/togglebookmark", {
                 userId,
                 itemId,
-                type,
-                isBookmarked
+                type
             });
-            console.log("Updated bookmarks:", response?.data?.bookmarks || []);
-            return response?.data?.bookmarks || []; // Updated bookmarks list
+            const updatedBookmarks = response?.data?.bookmarks || [];
+            dispatch(fetchBookmarks(userId));
+            dispatch(setLogo(updatedBookmarks.some(item => item.isBookmarked))); 
+            return updatedBookmarks;
         } catch (error) {
             console.error("Error toggling bookmark:", error);
             return rejectWithValue(error.response?.data?.message || 'Failed to toggle bookmark');
@@ -50,14 +49,17 @@ export const toggleBookmark = createAsyncThunk(
     }
 );
 
-// Bookmark slice
+
 const bookmarksSlice = createSlice({
     name: 'bookmarks',
     initialState,
-    reducers: {},
+    reducers: {
+        setLogo(state, action) {
+            state.bookMarked = action.payload
+            localStorage.setItem('bookMarked', JSON.stringify(action.bookMarked));
+    }},
     extraReducers: (builder) => {
         builder
-            // Fetch bookmarks
             .addCase(fetchBookmarks.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -65,12 +67,12 @@ const bookmarksSlice = createSlice({
             .addCase(fetchBookmarks.fulfilled, (state, action) => {
                 state.loading = false;
                 state.bookmarks = action.payload;
+                localStorage.setItem('bookMarked', JSON.stringify(true)); 
             })
             .addCase(fetchBookmarks.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            // Toggle bookmark
             .addCase(toggleBookmark.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -78,6 +80,7 @@ const bookmarksSlice = createSlice({
             .addCase(toggleBookmark.fulfilled, (state, action) => {
                 state.loading = false;
                 state.bookmarks = action.payload;
+                localStorage.setItem('bookMarked', JSON.stringify(true));
             })
             .addCase(toggleBookmark.rejected, (state, action) => {
                 state.loading = false;
@@ -85,5 +88,7 @@ const bookmarksSlice = createSlice({
             });
     },
 });
+
+export const { setLogo } = bookmarksSlice.actions;
 
 export default bookmarksSlice.reducer;

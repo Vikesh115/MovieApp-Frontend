@@ -12,23 +12,20 @@ function Home() {
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
-
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const storedEmail = localStorage.getItem('email');
-    console.log(storedEmail);
 
-    // Fetch Recommended and Trending Data
     useEffect(() => {
         fetchData();
     }, []);
 
     useEffect(() => {
         if (search.trim()) {
-            dispatch(searchAllItems(search)); // Dispatch search only if query is not empty
+            dispatch(searchAllItems(search));
         } else {
-            dispatch(clearSearchResults()); // Clear search results if query is empty
+            dispatch(clearSearchResults());
         }
     }, [search, dispatch]);
 
@@ -50,7 +47,7 @@ function Home() {
     const handleSearch = (e) => {
         e.preventDefault();
         if (search.trim()) {
-            console.log('Searching for:', search);  // Check if query is correct
+            console.log('Searching for:', search);
             dispatch(searchAllItems(search));
         }
     };
@@ -66,7 +63,6 @@ function Home() {
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
             <p className='flex lg:pt-5 pl-2 lg:text-lg md:text-xl'>Welcome, {storedEmail}</p>
-            {/* Search Bar */}
             <div className="flex items-center space-x-2 p-4 bg-gray-800">
                 <button
                     onClick={handleSearch}
@@ -82,8 +78,6 @@ function Home() {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-
-            {/* Search Results */}
             {searchLoading && <div className="text-center text-color4">Searching...</div>}
             {searchError && <div className="text-center text-red-500">{searchError}</div>}
             {searchResults.length > 0 && !searchLoading && (
@@ -93,37 +87,11 @@ function Home() {
                         {searchResults.map((item, index) => (
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
-                                    {/* Image */}
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Bookmark Icon */}
-                                    {/* <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                                        {isBookmarked(item.id) ? (
-                                            <MdBookmark
-                                                className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        ) : (
-                                            <MdBookmarkBorder
-                                                className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent bubbling issues
-                                                    handleBookmark(item);
-                                                }}
-                                                size={32}
-                                            />
-                                        )}
-                                    </div> */}
-
-                                    {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
@@ -158,7 +126,6 @@ function Home() {
                 </div>
             )}
 
-            {/* Trending Section */}
             <div className="mt-8">
                 <h2 className="text-color4 font-medium text-xl mb-4 pl-2">Trending</h2>
                 <div className="flex overflow-x-scroll ">
@@ -166,14 +133,11 @@ function Home() {
                         data.map((item, index) => (
                             <div key={index} className="flex-shrink-0 sm:w-[65%] md:w-[65%] lg:w-[40%] p-4">
                                 <div className="relative group">
-                                    {/* Image */}
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
@@ -210,7 +174,6 @@ function Home() {
                 </div>
             </div>
 
-            {/* Recommended Section */}
             <div className="mt-8">
                 <h2 className="text-color4 font-medium text-xl mb-4 pl-2">Recommended for You</h2>
                 <div className="flex flex-wrap">
@@ -218,14 +181,11 @@ function Home() {
                         data.map((item, index) => (
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
-                                    {/* Image */}
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Play Icon (Visible only on hover) */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
@@ -257,7 +217,7 @@ function Home() {
                             </div>
                         ))
                     ) : (
-                        <div className="text-center text-color4">No recommendations available at the moment.</div>
+                        <div className="text-center text-color4">No Tvs or Movies available at the moment.</div>
                     )}
                 </div>
             </div>

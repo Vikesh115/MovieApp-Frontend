@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { searchBookmarkItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
+import { searchBookmarkItems, clearSearchResults } from '../../Redux/Slices/searchSlice';
 import { fetchBookmarks } from '../../Redux/Slices/bookmarksSlice';
-import {MdBookmarkBorder } from 'react-icons/md';
+import { MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
@@ -16,6 +16,8 @@ const Bookmark = () => {
   const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
   const { user } = useSelector((state) => state.auth);
 
+  console.log(bookmarks);
+
   useEffect(() => {
     if (!search.trim()) {
       dispatch(clearSearchResults());
@@ -23,7 +25,6 @@ const Bookmark = () => {
   }, [search, dispatch]);
 
   useEffect(() => {
-    console.log("User in useEffect:", user);
     if (user) {
       dispatch(fetchBookmarks(user));
     }
@@ -32,9 +33,9 @@ const Bookmark = () => {
 
   useEffect(() => {
     if (user && user && search.trim()) {
-      dispatch(searchBookmarkItems({ userId: user, search }));  // Dispatching with the user ID and search query
+      dispatch(searchBookmarkItems({ userId: user, search }));
     } else if (!search.trim()) {
-      dispatch(clearSearchResults()); // Clear search results if query is empty
+      dispatch(clearSearchResults());
     }
   }, [search, dispatch, user]);
 
@@ -48,7 +49,7 @@ const Bookmark = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      dispatch(searchBookmarkItems({ userId: user, search })); // Search dispatch
+      dispatch(searchBookmarkItems({ userId: user, search }));
     }
   };
 
@@ -81,34 +82,26 @@ const Bookmark = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
-      {/* Search Results */}
       {searchLoading && <div className="text-center text-color4">Searching...</div>}
       {searchError && <div className="text-center text-red-500">{searchError}</div>}
-      {/* {searchResults.movies?.length > 0 && ( */}
       <div className="mt-8">
         <div className="flex flex-wrap">
-          {/* Movies */}
           {searchResults.movies?.map((item, index) => (
             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
               <div className="relative group">
-                {/* Image */}
                 <img
                   src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                   alt={item.original_title || item.name || 'Movie/TV Show'}
                   className="w-full rounded-xl object-cover"
                 />
-                {/* Bookmark Icon */}
                 <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                  
-                    <MdBookmarkBorder
-                      className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                      onClick={()=>{}}
-                      size={32}
-                    />
-                </div>
 
-                {/* Play Icon (Visible only on hover) */}
+                  <MdBookmarkBorder
+                    className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
+                    onClick={() => { }}
+                    size={32}
+                  />
+                </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                     <IoPlayCircleOutline
@@ -135,28 +128,23 @@ const Bookmark = () => {
               </div>
             </div>
           ))}
-          {/* TV Shows */}
           {searchResults.tvShows?.map((item, index) => (
             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
               <div className="relative group">
-                {/* Image */}
                 <img
                   src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                   alt={item.original_title || item.name || 'Movie/TV Show'}
                   className="w-full rounded-xl object-cover"
                 />
-                {/* Bookmark Icon */}
                 <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                
-                    <MdBookmarkBorder
-                      className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                      onClick={()=>{}}
-                      size={32}
-                    />
+
+                  <MdBookmarkBorder
+                    className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
+                    onClick={() => { }}
+                    size={32}
+                  />
 
                 </div>
-
-                {/* Play Icon (Visible only on hover) */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                     <IoPlayCircleOutline
@@ -186,12 +174,11 @@ const Bookmark = () => {
         </div>
       </div>
 
-      {/* Bookmarked Movies */}
-      {bookmarks.movies?.length > 0 && (
+      {bookmarks && bookmarks?.movies && (
         <div className="mt-8">
           <h2 className="text-color4 font-medium text-xl mb-4">Bookmarked Movies</h2>
           <div className="flex flex-wrap">
-            {bookmarks.movies.map((item, index) => (
+            {bookmarks && bookmarks?.movies.map((item, index) => (
               <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                 <div className="relative group">
                   {/* Image */}
@@ -200,19 +187,6 @@ const Bookmark = () => {
                     alt={item.original_title || item.name || 'Movie/TV Show'}
                     className="w-full rounded-xl object-cover"
                   />
-
-                  {/* Bookmark Icon */}
-                  <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                      
-                      <MdBookmarkBorder
-                        className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                        onClick={()=>{}}
-                        size={32}
-                      />
-                  
-                  </div>
-
-                  {/* Play Icon (Visible only on hover) */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                       <IoPlayCircleOutline
@@ -241,33 +215,18 @@ const Bookmark = () => {
           </div>
         </div>
       )}
-
-      {/* Bookmarked TV Shows */}
-      {bookmarks.tv?.length > 0 && (
+      {bookmarks && bookmarks?.tv && (
         <div className="mt-8">
           <h2 className="text-color4 font-medium text-xl mb-4">Bookmarked TV Series</h2>
           <div className="flex flex-wrap">
-            {bookmarks.tv.map((item, index) => (
+            {bookmarks && bookmarks?.tv.map((item, index) => (
               <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                 <div className="relative group">
-                  {/* Image */}
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                     alt={item.original_title || item.name || 'Movie/TV Show'}
                     className="w-full rounded-xl object-cover"
                   />
-
-                  {/* Bookmark Icon */}
-                  <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
-                    
-                      <MdBookmarkBorder
-                        className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                        onClick={()=>{}}
-                        size={32}
-                      />
-                  </div>
-
-                  {/* Play Icon (Visible only on hover) */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                       <IoPlayCircleOutline
@@ -296,7 +255,6 @@ const Bookmark = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

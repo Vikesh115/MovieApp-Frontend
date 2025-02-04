@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const MovieDetail = () => {
-  const { id } = useParams(); // Get movie ID from URL
+  const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,14 +33,11 @@ const MovieDetail = () => {
   return (
     <div className="md:pl-24 p-6 bg-color3 min-h-screen text-color4 pt-20">
       <div className="flex flex-col md:flex-row gap-6 items-center">
-        {/* Movie Poster */}
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="w-64 rounded-lg shadow-lg"
         />
-
-        {/* Movie Details */}
         <div>
           <h1 className="text-4xl font-bold">{movie.title}</h1>
           <p className=" my-4">{movie.overview}</p>
@@ -54,7 +51,6 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      {/* Cast List */}
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-4">Cast</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

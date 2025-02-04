@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchTvItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
+import { searchTvItems, clearSearchResults } from '../../Redux/Slices/searchSlice';
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { fetchBookmarks, toggleBookmark } from '../../Redux/Slices/bookmarksSlice';
 import axios from 'axios';
 
 function Tv() {
@@ -14,21 +15,20 @@ function Tv() {
     const dispatch = useDispatch();
     const { bookmarks } = useSelector((state) => state.bookmarks);
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
-
+    const { user } = useSelector((state) => state.auth);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch Recommended and Trending Data
     useEffect(() => {
         fetchData();
     }, []);
 
     useEffect(() => {
         if (search.trim()) {
-            dispatch(searchTvItems(search)); // Dispatch search only if query is not empty
+            dispatch(searchTvItems(search)); 
         } else {
-            dispatch(clearSearchResults()); // Clear search results if query is empty
+            dispatch(clearSearchResults());
         }
     }, [search, dispatch]);
 
@@ -54,9 +54,19 @@ function Tv() {
     const handleSearch = (e) => {
         e.preventDefault();
         if (search.trim()) {
-            console.log('Searching for:', search);  // Check if query is correct
+            console.log('Searching for:', search);
             dispatch(searchTvItems(search));
         }
+    };
+
+    const handleBookmark = (item) => {
+        const userId = user;
+        const itemId = item.id;
+        const type = item.media_type;
+
+        dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
+            dispatch(fetchBookmarks(user));
+        });
     };
 
     if (loading) {
@@ -69,7 +79,6 @@ function Tv() {
 
     return (
         <div className="bg-color1 w-full h-full lg:pl-32 lg:pt-0 sm:pt-24 md:pt-36 text-color4">
-            {/* Search Bar */}
             <div className="flex items-center space-x-2 p-4 bg-gray-800">
                 <button
                     onClick={handleSearch}
@@ -85,8 +94,6 @@ function Tv() {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-
-            {/* Search Results */}
             {searchLoading && <div className="text-center text-color4">Searching...</div>}
             {searchError && <div className="text-center text-red-500">{searchError}</div>}
             {searchResults.length > 0 && !searchLoading && (
@@ -96,31 +103,18 @@ function Tv() {
                         {searchResults.map((item, index) => (
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
-                                    {/* Image */}
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Bookmark Icon */}
-                                    <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
+                                    <button onClick={() => handleBookmark(item)} className="absolute top-2 right-2 cursor-pointer z-20 rounded-full ">
                                         {isBookmarked(item.id) ? (
-                                            <MdBookmark
-                                                className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={()=>{}}
-                                                size={32}
-                                            />
+                                            <MdBookmark size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         ) : (
-                                            <MdBookmarkBorder
-                                                className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={()=>{}}
-                                                size={32}
-                                            />
+                                            <MdBookmarkBorder size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         )}
-                                    </div>
-
-                                    {/* Play Icon (Visible only on hover) */}
+                                    </button>
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
@@ -162,31 +156,18 @@ function Tv() {
                         data.map((item, index) => (
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
-                                    {/* Image */}
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
-
-                                    {/* Bookmark Icon */}
-                                    <div className="absolute top-2 right-2 cursor-pointer z-20 rounded-full bg-color1">
+                                    <button onClick={() => handleBookmark(item)} className="absolute top-2 right-2 cursor-pointer z-20 rounded-full ">
                                         {isBookmarked(item.id) ? (
-                                            <MdBookmark
-                                                className="text-white text-2xl p-1 rounded-full hover:bg-color4 hover:text-color1"
-                                                onClick={()=>{}}
-                                                size={32}
-                                            />
+                                            <MdBookmark size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         ) : (
-                                            <MdBookmarkBorder
-                                                className="text-white text-2xl p-1 rounded-full  hover:bg-color4 hover:text-color1"
-                                                onClick={()=>{}}
-                                                size={32}
-                                            />
+                                            <MdBookmarkBorder size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         )}
-                                    </div>
-
-                                    {/* Play Icon (Visible only on hover) */}
+                                    </button>
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <div className='bg-color4 flex items-center rounded-xl bg-opacity-25'>
                                             <IoPlayCircleOutline
@@ -213,7 +194,7 @@ function Tv() {
                             </div>
                         ))
                     ) : (
-                        <div className="text-center text-color4">No recommendations available at the moment.</div>
+                        <div className="text-center text-color4">No Tvs available at the moment.</div>
                     )}
                 </div>
             </div>

@@ -9,7 +9,6 @@ import { NavLink } from 'react-router-dom'
 function Navbar() {
     return (
         <div>
-            {/* Desktop */}
             <div className='lg:flex sm:hidden fixed md:hidden h-[100%] justify-between items-center flex-col bg-color3 w-[6%] py-4 z-10'>
                 <div className='flex-col gap-3'>
                     <NavLink to="/"><MdMovie color='#FC4747' size={36} /></NavLink>
@@ -40,7 +39,6 @@ function Navbar() {
                     <IoPersonCircleSharp size={30} className="text-color0" />
                 </NavLink>
             </div>
-            {/* Tab */}
             <div className='md:flex sm:hidden lg:hidden fixed h-[10%] w-[100%] justify-between items-center bg-color3 px-4 z-20'>
                 <div className='flex'>
                     <NavLink to="/"><MdMovie size={48} color='#FC4747' /></NavLink>
@@ -79,7 +77,6 @@ function Navbar() {
                     <IoPersonCircleSharp size={30} className="text-color0" />
                 </NavLink>
             </div>
-            {/* Mobile */}
             <div className='sm:flex md:hidden lg:hidden fixed h-[6%] w-[100%] justify-between items-center bg-color3 px-2 z-30'>
                 <div className='flex text-color0'>
                     <NavLink to="/"><MdMovie size={28} /></NavLink>
