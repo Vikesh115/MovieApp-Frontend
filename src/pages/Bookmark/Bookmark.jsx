@@ -7,6 +7,7 @@ import { PiTelevisionFill } from "react-icons/pi";
 import { MdLocalMovies } from "react-icons/md";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
+import { BiSolidError } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 
 const Bookmark = () => {
@@ -43,6 +44,10 @@ const Bookmark = () => {
     return <p className='pl-32 pt-5'>Please log in to view your bookmarks.</p>;
   }
 
+  if(user?.bookmarks?.length === 0){
+    return <p className='pl-32 pt-5'>Please add bookmarks.</p>;
+  }
+
   const getReleaseYear = (date) => (date ? new Date(date).getFullYear() : "N/A");
   const getRating = (isAdult) => (isAdult ? "18+" : "PG");
 
@@ -58,15 +63,22 @@ const Bookmark = () => {
   }
 
   if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
+    return <div className="text-center text-red-500 lg:pt-0 sm:pt-24 md:pt-36 bg-color1 text-color0 h-screen flex flex-col gap-5 items-center justify-center">
+      <div>
+      <BiSolidError size={50}/>
+      </div>
+      <div>
+      {error}
+      </div>
+      </div>;
   }
 
   if (!bookmarks || (!bookmarks.movies?.length && !bookmarks.tv?.length)) {
-    return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>No bookmarks available.</p>;
+    return <p className='flex justify-center lg:pt-0 sm:pt-24 md:pt-36'>Please bookmark an item!!!</p>;
   }
 
   return (
-    <div className="p-2 lg:pl-32 lg:pt-0 sm:pt-12 md:pt-36 bg-color1 text-color4 h-full">
+    <div className="p-2 lg:pl-32 lg:pt-0 sm:pt-12 md:pt-36 bg-color1 text-color4 min-h-screen">
       <div className="flex items-center space-x-2 p-4 bg-gray-800">
         <button
           onClick={handleSearch}
