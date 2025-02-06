@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchMovieItems, clearSearchResults } from '../../Redux/Slices/searchSlice'; // Adjust path as needed
+import { searchMovieItems, clearSearchResults } from '../../Redux/Slices/searchSlice';
 import { Link } from 'react-router-dom';
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md';
 import { PiTelevisionFill } from "react-icons/pi";
@@ -25,12 +25,17 @@ function Movies() {
     }, []);
 
     useEffect(() => {
-        dispatch(fetchBookmarks(user))
-    }, [dispatch, user])
+        dispatch(fetchBookmarks(user));
+
+        const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+        if (storedBookmarks.length > 0) {
+            dispatch({ type: 'bookmarks/setBookmarks', payload: storedBookmarks });
+        }
+    }, [dispatch, user]);
 
     useEffect(() => {
         if (search.trim()) {
-            dispatch(searchMovieItems(search)); 
+            dispatch(searchMovieItems(search));
         } else {
             dispatch(clearSearchResults());
         }
@@ -52,13 +57,18 @@ function Movies() {
     const getRating = (isAdult) => (isAdult ? "18+" : "PG");
 
     const isBookmarked = (itemId) => {
-        return Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId);
+        const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+
+        return (
+            (Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId)) ||
+            storedBookmarks.some((bookmark) => bookmark.itemId === itemId)
+        );
     };
 
     const handleSearch = (e) => {
         e.preventDefault();
         if (search.trim()) {
-            console.log('Searching for:', search); 
+            console.log('Searching for:', search);
             dispatch(searchMovieItems(search));
         }
     };
@@ -69,7 +79,18 @@ function Movies() {
         const type = item.media_type;
 
         dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
-            dispatch(fetchBookmarks(user)); 
+            dispatch(fetchBookmarks(user));
+
+            const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+            const bookmarkIndex = bookmarks.findIndex(b => b.itemId === itemId);
+
+            if (bookmarkIndex >= 0) {
+                bookmarks.splice(bookmarkIndex, 1);
+            } else {
+                bookmarks.push({ itemId, type });
+            }
+
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
         });
     };
 

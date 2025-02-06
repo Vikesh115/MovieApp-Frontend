@@ -25,7 +25,7 @@ function App() {
     if (user) {
       dispatch(fetchBookmarks(user));
     }
-  }, [user, dispatch]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
