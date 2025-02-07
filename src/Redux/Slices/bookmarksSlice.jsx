@@ -3,8 +3,6 @@ import axios from 'axios';
 
 const initialState = {
     bookmarks: [],
-    bookMarked: localStorage.getItem("bookMarked") 
-    ? JSON.parse(localStorage.getItem("bookMarked")) : false,
     loading: false,
     error: null,
 };
@@ -40,7 +38,6 @@ export const toggleBookmark = createAsyncThunk(
             });
             const updatedBookmarks = response?.data?.bookmarks || [];
             dispatch(fetchBookmarks(userId));
-            dispatch(setLogo(updatedBookmarks.some(item => item.isBookmarked))); 
             return updatedBookmarks;
         } catch (error) {
             console.error("Error toggling bookmark:", error);
@@ -53,11 +50,7 @@ export const toggleBookmark = createAsyncThunk(
 const bookmarksSlice = createSlice({
     name: 'bookmarks',
     initialState,
-    reducers: {
-        setLogo(state, action) {
-            state.bookMarked = action.payload
-            localStorage.setItem('bookMarked', JSON.stringify(action.bookMarked));
-    }},
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchBookmarks.pending, (state) => {
@@ -67,7 +60,6 @@ const bookmarksSlice = createSlice({
             .addCase(fetchBookmarks.fulfilled, (state, action) => {
                 state.loading = false;
                 state.bookmarks = action.payload;
-                localStorage.setItem('bookMarked', JSON.stringify(true)); 
             })
             .addCase(fetchBookmarks.rejected, (state, action) => {
                 state.loading = false;
@@ -80,7 +72,6 @@ const bookmarksSlice = createSlice({
             .addCase(toggleBookmark.fulfilled, (state, action) => {
                 state.loading = false;
                 state.bookmarks = action.payload;
-                localStorage.setItem('bookMarked', JSON.stringify(true));
             })
             .addCase(toggleBookmark.rejected, (state, action) => {
                 state.loading = false;
@@ -88,7 +79,5 @@ const bookmarksSlice = createSlice({
             });
     },
 });
-
-export const { setLogo } = bookmarksSlice.actions;
 
 export default bookmarksSlice.reducer;
