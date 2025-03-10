@@ -126,7 +126,10 @@ function Tv() {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            {searchLoading && <div className="text-center text-color4">Searching...</div>}
+            {searchLoading && <div className="flex justify-center flex-row gap-2 text-center text-color4">
+                <div className='flex items-center'>Searching...</div>
+                <div className='flex animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-color4'></div>
+                </div>}
             {searchError && <div className="text-center text-red-500">{searchError}</div>}
             {searchResults.length > 0 && !searchLoading && (
                 <div className="mt-8">
