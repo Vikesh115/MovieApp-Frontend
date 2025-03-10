@@ -18,6 +18,7 @@ function Movies() {
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
     const [data, setData] = useState([]);
     const [loading1, setLoading1] = useState(true);
+    const [loading2, setLoading2] = useState(true)
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -48,6 +49,7 @@ function Movies() {
             setError('Failed to load data. Please try again later.', err);
         } finally {
             setLoading1(false);
+            setLoading2(false);
         }
     };
 
@@ -71,14 +73,20 @@ function Movies() {
         }
     };
 
-    const handleBookmark = (item) => {
+    const handleBookmark = async (item) => {
         const userId = user;
         const itemId = item.id;
         const type = item.media_type;
-
-        dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
-            dispatch(fetchBookmarks(user));
-        });
+        setLoading2(true)
+        try {
+            await dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
+                dispatch(fetchBookmarks(user));
+            });
+        } catch (error) {
+            return error
+        }finally{
+            setLoading2(false)
+        }
     };
 
     if (loading1) {
@@ -93,6 +101,17 @@ function Movies() {
             ;
     }
 
+    if (loading2) {
+        return (
+            <div className='flex flex-row justify-center items-center w-[100%] h-screen bg-color3'>
+                <div className='flex text-color4'>
+                    bookmarking movies...
+                </div>
+                <div className='flex animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-color0'></div>
+            </div>
+        )
+            ;
+    }
 
     if (error) {
         return <div className="text-center text-red-500">{error}</div>;
