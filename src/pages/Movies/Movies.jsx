@@ -26,12 +26,10 @@ function Movies() {
 
     useEffect(() => {
         dispatch(fetchBookmarks(user));
-
-        const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-        if (storedBookmarks.length > 0) {
-            dispatch({ type: 'bookmarks/setBookmarks', payload: storedBookmarks });
+        if (bookmarks.length > 0) {
+            dispatch({ type: 'bookmarks/setBookmarks', payload: bookmarks });
         }
-    }, [dispatch, user]);
+    }, [user, dispatch]);
 
     useEffect(() => {
         if (search.trim()) {
@@ -57,13 +55,13 @@ function Movies() {
     const getRating = (isAdult) => (isAdult ? "18+" : "PG");
 
     const isBookmarked = (itemId) => {
-        const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-
-        return (
-            (Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId)) ||
-            storedBookmarks.some((bookmark) => bookmark.itemId === itemId)
-        );
+        return (bookmarks?.movies?.some((bookmark) => bookmark?.id === itemId))
     };
+
+    useEffect((itemId) => {
+        isBookmarked(itemId)
+    }, [])
+    
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -80,17 +78,6 @@ function Movies() {
 
         dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
             dispatch(fetchBookmarks(user));
-
-            const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-            const bookmarkIndex = bookmarks.findIndex(b => b.itemId === itemId);
-
-            if (bookmarkIndex >= 0) {
-                bookmarks.splice(bookmarkIndex, 1);
-            } else {
-                bookmarks.push({ itemId, type });
-            }
-
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
         });
     };
 
@@ -134,7 +121,7 @@ function Movies() {
                                         className="w-full rounded-xl object-cover"
                                     />
                                     <button onClick={() => handleBookmark(item)} className="absolute top-2 right-2 cursor-pointer z-20 rounded-full ">
-                                        {isBookmarked(item.id) ? (
+                                        {isBookmarked(item?.id) ? (
                                             <MdBookmark size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         ) : (
                                             <MdBookmarkBorder size={"32px"} className="text-white text-2xl p-1 rounded-full" />
@@ -157,13 +144,13 @@ function Movies() {
                                     </div>
                                 </div>
                                 <div className="flex text-xs font-light mt-2 text-color4">
-                                    {getReleaseYear(item.release_date || item.first_air_date)} .
-                                    {item.media_type === "movie" ? (
+                                    {getReleaseYear(item?.release_date || item?.first_air_date)} .
+                                    {item?.media_type === "movie" ? (
                                         <MdLocalMovies className="text-lg" />
                                     ) : (
                                         <PiTelevisionFill className="text-lg" />
                                     )}
-                                    {item.media_type.toUpperCase()} . {getRating(item.adult)}
+                                    {item?.media_type.toUpperCase()} . {getRating(item?.adult)}
                                 </div>
                                 <div className="mt-2 text-sm font-semibold text-color4">
                                     {item.original_title}
@@ -187,7 +174,7 @@ function Movies() {
                                         className="w-full rounded-xl object-cover"
                                     />
                                     <button onClick={() => handleBookmark(item)} className="absolute top-2 right-2 cursor-pointer z-20 rounded-full ">
-                                        {isBookmarked(item.id) ? (
+                                        {isBookmarked(item?.id) ? (
                                             <MdBookmark size={"32px"} className="text-white text-2xl p-1 rounded-full" />
                                         ) : (
                                             <MdBookmarkBorder size={"32px"} className="text-white text-2xl p-1 rounded-full" />
@@ -200,8 +187,8 @@ function Movies() {
                                                 className="text-white bg-gray-800 p-2 rounded-full hover:bg-gray-600"
                                             />
                                             <Link
-                                                key={item.id}
-                                                to={`/movie/${item.id}`}
+                                                key={item?.id}
+                                                to={`/movie/${item?.id}`}
                                                 className="p-4 bg-white rounded-lg shadow-lg flex  items-center hover:bg-gray-200"
                                             >
                                                 Play
@@ -210,11 +197,11 @@ function Movies() {
                                     </div>
                                 </div>
                                 <div className="flex text-xs font-light mt-2 text-color4">
-                                    {getReleaseYear(item.release_date || item.first_air_date)} .
-                                    {item.media_type} . {getRating(item.adult)}
+                                    {getReleaseYear(item?.release_date || item.first_air_date)} .
+                                    {item?.media_type} . {getRating(item.adult)}
                                 </div>
                                 <div className="mt-2 text-sm font-semibold text-color4">
-                                    {item.original_title || item.name}
+                                    {item?.original_title || item?.name}
                                 </div>
                             </div>
                         ))

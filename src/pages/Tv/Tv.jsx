@@ -48,13 +48,12 @@ function Tv() {
     const getRating = (isAdult) => (isAdult ? "18+" : "PG");
 
     const isBookmarked = (itemId) => {
-        const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-
-        return (
-            (Array.isArray(bookmarks) && bookmarks.some((bookmark) => bookmark.itemId === itemId)) ||
-            storedBookmarks.some((bookmark) => bookmark.itemId === itemId)
-        );
+        return (bookmarks?.tv?.some((bookmark) => bookmark?.id === itemId))
     };
+
+    useEffect((itemId) => {
+        isBookmarked(itemId)
+    }, [])
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -71,17 +70,6 @@ function Tv() {
 
         dispatch(toggleBookmark({ userId, itemId, type })).then(() => {
             dispatch(fetchBookmarks(user));
-
-            const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-            const bookmarkIndex = bookmarks.findIndex(b => b.itemId === itemId);
-
-            if (bookmarkIndex >= 0) {
-                bookmarks.splice(bookmarkIndex, 1);
-            } else {
-                bookmarks.push({ itemId, type });
-            }
-
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
         });
     };
 
