@@ -17,8 +17,6 @@ const Bookmark = () => {
   const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
   const { user } = useSelector((state) => state.auth);
 
-  console.log(bookmarks);
-
   useEffect(() => {
     if (!search.trim()) {
       dispatch(clearSearchResults());
