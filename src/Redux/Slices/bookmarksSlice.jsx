@@ -15,6 +15,7 @@ export const fetchBookmarks = createAsyncThunk(
             return rejectWithValue('User ID is required.');
         }
         try {
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const response = await axios.get(
                 `https://movieapp-tu5n.onrender.com/user/getbookmark?userId=${encodeURIComponent(user)}`
             );
@@ -31,6 +32,7 @@ export const toggleBookmark = createAsyncThunk(
     'bookmarks/toggleBookmark',
     async ({ userId, itemId, type }, { rejectWithValue, dispatch }) => {
         try {
+            await new Promise(resolve => setTimeout(resolve, 1000));
             const response = await axios.post("https://movieapp-tu5n.onrender.com/user/togglebookmark", {
                 userId,
                 itemId,

@@ -74,7 +74,15 @@ function Tv() {
     };
 
     if (loading) {
-        return <div className="text-center text-color4">Loading TV shows...</div>;
+        return (
+            <div className='flex flex-row justify-center items-center w-[100%] h-screen bg-color1'>
+                <div className='flex text-color4'>
+                    loading tv series...
+                </div>
+                <div className='flex animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-color0'></div>
+            </div>
+        )
+            ;
     }
 
     if (error) {

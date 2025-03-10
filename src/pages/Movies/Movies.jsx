@@ -17,7 +17,7 @@ function Movies() {
     const { bookmarks } = useSelector((state) => state.bookmarks);
     const { results: searchResults = [], loading: searchLoading, error: searchError } = useSelector((state) => state.search);
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading1, setLoading1] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Movies() {
 
     useEffect(() => {
         dispatch(fetchBookmarks(user));
-        if (bookmarks.length > 0) {
+        if (bookmarks?.length > 0) {
             dispatch({ type: 'bookmarks/setBookmarks', payload: bookmarks });
         }
     }, [user, dispatch]);
@@ -41,13 +41,13 @@ function Movies() {
 
     const fetchData = async () => {
         try {
-            setLoading(true);
+            setLoading1(true);
             const movieRes = await axios.get('https://movieapp-tu5n.onrender.com/movie/getAllMovie');
             setData(movieRes.data || []);
         } catch (err) {
             setError('Failed to load data. Please try again later.', err);
         } finally {
-            setLoading(false);
+            setLoading1(false);
         }
     };
 
@@ -61,7 +61,7 @@ function Movies() {
     useEffect((itemId) => {
         isBookmarked(itemId)
     }, [])
-    
+
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -81,9 +81,18 @@ function Movies() {
         });
     };
 
-    if (loading) {
-        return <div className="text-center text-color4">Loading movies...</div>;
+    if (loading1) {
+        return (
+            <div className='flex flex-row justify-center items-center w-[100%] h-screen bg-color1'>
+                <div className='flex text-color4'>
+                    loading movies...
+                </div>
+                <div className='flex animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-color0'></div>
+            </div>
+        )
+            ;
     }
+
 
     if (error) {
         return <div className="text-center text-red-500">{error}</div>;
