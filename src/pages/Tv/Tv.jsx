@@ -139,7 +139,7 @@ function Tv() {
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                                        src={item.backdrop_path ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}` : "https://images.pexels.com/photos/28971566/pexels-photo-28971566/free-photo-of-vibrant-anime-cosplay-with-gas-mask-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
@@ -192,7 +192,7 @@ function Tv() {
                             <div key={index} className="sm:w-[50%] md:w-[33%] lg:w-[25%] p-4">
                                 <div className="relative group">
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                                        src={item.backdrop_path ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}` : "https://images.pexels.com/photos/28971566/pexels-photo-28971566/free-photo-of-vibrant-anime-cosplay-with-gas-mask-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                                         alt={item.original_title || item.name || 'Movie/TV Show'}
                                         className="w-full rounded-xl object-cover"
                                     />
